@@ -1,4 +1,7 @@
 import inquirer from 'inquirer';
+import qr from 'qr-image';
+import fs from "fs";
+
 
 /* 
 1. Use the inquirer npm package to get user input.
@@ -9,13 +12,20 @@ import inquirer from 'inquirer';
 
 inquirer
   .prompt([{
+    // Tells user to type on the URL of their choice
     message: "Type in your URL:",
     name: "URL"
    
      }])
   .then((answers) => {
+    // storing the answer
     const url = answers.URL;
-    console.log(url);
+
+    // turns url into qr code
+    var qr_svg = qr.image(url);
+
+    // in terminal node index.js when done creates png file and takes to url that was typed!
+    qr_svg.pipe(fs.createWriteStream('qr_img.png'));
   })
   .catch((error) => {
     if (error.isTtyError) {
@@ -24,3 +34,7 @@ inquirer
       // Something else went wrong
     }
   });
+
+
+
+
