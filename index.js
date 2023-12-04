@@ -26,6 +26,12 @@ inquirer
 
     // in terminal node index.js when done creates png file and takes to url that was typed!
     qr_svg.pipe(fs.createWriteStream('qr_img.png'));
+
+    // saves file of what typed in "URL.txt" using native module fs
+    fs.writeFile("URL.txt", url, (err) => {
+        if(err) throw err;
+        console.log("The file has been saved!");
+    })
   })
   .catch((error) => {
     if (error.isTtyError) {
